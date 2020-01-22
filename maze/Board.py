@@ -1,5 +1,8 @@
 from Node import Node
 
+# Constants
+MIN_SIZE = 3
+
 
 class BoardSizeException(Exception):
 
@@ -9,11 +12,11 @@ class BoardSizeException(Exception):
 
     def _getMessage(self):
         message = "Nothing's wrong..."
-        if (self.height < 1 and self.width < 1):
+        if (self.height < MIN_SIZE and self.width < MIN_SIZE):
             message = "Board height and width are both less than 1."
-        elif (self.height < 1):
+        elif (self.height < MIN_SIZE):
             message = "Board height is less than 1"
-        elif (self.width < 1):
+        elif (self.width < MIN_SIZE):
             message = "Board width is less than 1."
         return message
 
@@ -25,7 +28,7 @@ class BoardSizeException(Exception):
 class Board:
 
     def __init__(self, h=15, w=15):
-        if (h < 1 or w < 1):
+        if (h < MIN_SIZE or w < MIN_SIZE):
             raise BoardSizeException(h, w)
         self.height = h
         self.width = w
@@ -64,3 +67,7 @@ class Board:
                 if (not x == 0):
                     grid[y][x].setLeft(grid[y][x - 1])
         return grid
+
+    def makeMaze(self, creator):
+        creator.grid = self.grid
+        self.grid = creator.generate()
