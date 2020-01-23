@@ -1,6 +1,5 @@
-from maze.data.board import Board
-from maze.data.board import BoardSizeException
-from maze.data.node import Node
+from maze.mazedata.board import Board, BoardSizeException
+from maze.mazedata.node import Node
 
 
 def main():
