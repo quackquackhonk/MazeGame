@@ -1,3 +1,4 @@
+from .node import Node
 # Constants
 MIN_SIZE = 3
 
@@ -24,48 +25,61 @@ class BoardSizeException(Exception):
 
 
 class Board:
-
-    def __init__(self, n, h=15, w=15):
+    def __init__(self, h=15, w=15):
         if (h < MIN_SIZE or w < MIN_SIZE):
             raise BoardSizeException(h, w)
         self.height = h
         self.width = w
-        self.realHeight = h + 2
-        self.realWidth = w + 2
-        self.grid = Board.createGrid(self.height, self.width, n)
-        self.startNode = (0, 1)
-        self.endNode = (self.realHeight - 1, self.width)
+        self.grid = Board.createGrid(self.height, self.width)
+        self.startNode = (0, 0)
+        self.endNode = (self.height - 1, self.width - 1)
 
     def __str__(self):
-        toPrint = ""
-        for i in range(self.realHeight):
-            for j in range(self.realWidth):
-                app = ''
-                if ((i, j) == self.startNode):
-                    app = '[S]'
-                elif ((i, j) == self.endNode):
-                    app = '[E]'
-                else:
-                    app = str(self.grid[i][j])
-                toPrint = toPrint + app
-            toPrint = toPrint + '\n'
-        return toPrint
+        toPrint = '+'
+        # Print top row boundaries
+        for i in range(self.width):
+            toPrint += '--+'
+        toPrint += '\n'
+        # if the node has None to the left or below, print a boundary, otherwise leave it open
+        for y in range(len(self.grid)):
+            leftBorders = '|'
+            bottomBorders = "+"
+            for x in range(len(self.grid[y])):
+                middle = '  '
+                if ((y, x) == self.startNode):
+                    middle = 'St'
+                elif ((y, x) == self.endNode):
+                    middle = 'En'
 
-    def createGrid(height, width, n):
-        grid = []
-        for y in range(height + 2):
-            grid.append([])
-            for x in range(width + 2):
-                if (x == 0 or y == 0 or x == (width + 1) or y == (height + 1)):
-                    grid[y].append(n(True))
+                leftBorders += middle
+                # check the left
+                if (self.grid[y][x].left is None):
+                    leftBorders += '|'
                 else:
-                    grid[y].append(n())
-                if (not y == 0):
-                    grid[y][x].setAbove(grid[y - 1][x])
-                if (not x == 0):
-                    grid[y][x].setLeft(grid[y][x - 1])
+                    leftBorders += ' '
+
+                # check the down
+                if (self.grid[y][x].down is None):
+                    bottomBorders += '--+'
+                else:
+                    bottomBorders += middle + '+'
+            toPrint += leftBorders + '\n'
+            toPrint += bottomBorders + '\n'
+        return toPrint.strip()
+
+    def createGrid(height, width):
+        grid = []
+        for y in range(height):
+            grid.append([])
+            for x in range(width):
+                grid[y].append(Node())
         return grid
 
     def makeMaze(self, creator):
         creator.grid = self.grid
         self.grid = creator.generate()
+
+
+if __name__ == '__main__':
+    b = Board()
+    print(b)

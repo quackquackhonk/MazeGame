@@ -1,10 +1,9 @@
 from maze.mazedata.board import Board, BoardSizeException
-from maze.mazedata.node import Node
 
 
 def main():
     try:
-        test = Board(Node)
+        test = Board()
         print(test)
     except BoardSizeException as e:
         ex = e.message

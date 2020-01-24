@@ -19,8 +19,8 @@ class MazeCreator():
         try:
             x = len(grid)
             y = len(grid[0])
-        except Exception as e:
-            raise ValueError("Grid must be a 2D array")
+        except IndexError as e:
+            raise e
         else:
             self._grid = grid
             self.realHeight = len(grid)

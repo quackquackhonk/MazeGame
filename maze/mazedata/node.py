@@ -2,9 +2,8 @@ class Node:
     __name = 1
 
     # is node blocked? Default: False
-    def __init__(self, b=False):
+    def __init__(self):
         self.name = Node.__name
-        self._blocked = b
         self.up = None
         self.down = None
         self.left = None
@@ -12,10 +11,7 @@ class Node:
         Node.__name += 1
 
     def __str__(self):
-        if (self.blocked):
-            return '[X]'
-        else:
-            return '[O]'
+        return "[ ]"
 
     def setAbove(self, above):
         self.up = above
@@ -34,12 +30,14 @@ class Node:
         toRight.left = self
 
     @property
-    def blocked(self):
-        return self._blocked
-
-    @blocked.setter
-    def blocked(self, val):
-        if (isinstance(val, bool)):
-            self._blocked = val
-        else:
-            raise TypeError("blocked can only be a boolean value")
+    def neighbors(self):
+        n = []
+        if (self.up is not None):
+            n.append(self.up)
+        if (self.down is not None):
+            n.append(self.down)
+        if (self.left is not None):
+            n.append(self.left)
+        if (self.right is not None):
+            n.append(self.right)
+        return n
