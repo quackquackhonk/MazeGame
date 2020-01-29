@@ -4,8 +4,8 @@ from maze.generation.growingtree import GrowingTree
 
 def main():
     try:
-        test = Board(50, 50)
-        generate = GrowingTree(test, 0)
+        test = Board(10, 10)
+        generate = GrowingTree(test, 10)
         generate.generate(20)
         print(test)
     except BoardSizeException as e:
