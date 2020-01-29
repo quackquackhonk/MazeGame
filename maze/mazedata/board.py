@@ -69,7 +69,7 @@ class Board:
                 if (self.grid[y][x].down is False):
                     bottomBorders += '--+'
                 else:
-                    bottomBorders += middle + '+'
+                    bottomBorders += '  +'
             toPrint += leftBorders + '\n'
             toPrint += bottomBorders + '\n'
         return toPrint.strip()
