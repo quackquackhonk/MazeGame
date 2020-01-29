@@ -38,13 +38,20 @@ class Board:
         toPrint = '+'
         # Print top row boundaries
         for i in range(self.width):
-            toPrint += '--+'
+            # checking if the top border is intact
+            # SHOULD NEVER HAPPEN. If the top doesn't have a complete boundary, something
+            # went wrong with the maze gen algorithm
+            add = '  ' if (self.grid[0][i].up is not False) else '--'
+            toPrint += add + '+'
         toPrint += '\n'
         # if the node has None to the left or below, print a boundary, otherwise leave it open
         for y in range(len(self.grid)):
-            leftBorders = '|'
+            leftBorders = '|' if (self.grid[y][0].right is False) else ' '
             bottomBorders = "+"
             for x in range(len(self.grid[y])):
+                # uncomment if you want to make each cell display it's name.
+                # will require some changes to other code
+                # middle = str(self.grid[y][x].name).center(5)
                 middle = '  '
                 if ((y, x) == self.startNode):
                     middle = 'St'
@@ -53,13 +60,13 @@ class Board:
 
                 leftBorders += middle
                 # check the left
-                if (self.grid[y][x].left is None):
+                if (self.grid[y][x].left is False):
                     leftBorders += '|'
                 else:
                     leftBorders += ' '
 
                 # check the down
-                if (self.grid[y][x].down is None):
+                if (self.grid[y][x].down is False):
                     bottomBorders += '--+'
                 else:
                     bottomBorders += middle + '+'
@@ -72,11 +79,10 @@ class Board:
         for y in range(height):
             grid.append([])
             for x in range(width):
-                grid[y].append(Node())
+                grid[y].append(Node(x, y))
         return grid
 
     def makeMaze(self, creator):
-        creator.grid = self.grid
         self.grid = creator.generate()
 
 

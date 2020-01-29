@@ -2,16 +2,23 @@ class Node:
     __name = 1
 
     # is node blocked? Default: False
-    def __init__(self):
+    def __init__(self, x, y):
         self.name = Node.__name
-        self.up = None
-        self.down = None
-        self.left = None
-        self.right = None
+        self.loc = (x, y)
+        self.up = False
+        self.down = False
+        self.left = False
+        self.right = False
         Node.__name += 1
 
     def __str__(self):
         return "[ ]"
+
+    def __eq__(self, other):
+        if (isinstance(other, self.__class__)):
+            return self.name == other.name
+        else:
+            return False
 
     def setAbove(self, above):
         self.up = above
@@ -41,3 +48,7 @@ class Node:
         if (self.right is not None):
             n.append(self.right)
         return n
+
+
+if __name__ == '__main__':
+    pass
