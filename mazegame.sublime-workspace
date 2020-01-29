@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"nw",
+				"newCell"
+			],
+			[
+				"bo",
+				"board"
+			],
+			[
 				"visited",
 				"visitedCells"
 			],
@@ -167,25 +175,7 @@
 			"file": "maze/generation/growingtree.py",
 			"settings":
 			{
-				"buffer_size": 4297,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "maze/generation/mazecreator.py",
-			"settings":
-			{
-				"buffer_size": 489,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "main.py",
-			"settings":
-			{
-				"buffer_size": 828,
+				"buffer_size": 3702,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -194,16 +184,25 @@
 			"file": "maze/mazedata/board.py",
 			"settings":
 			{
-				"buffer_size": 2547,
+				"buffer_size": 2988,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "maze/mazedata/node.py",
+			"file": "maze/generation/mazecreator.py",
 			"settings":
 			{
-				"buffer_size": 1209,
+				"buffer_size": 369,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "main.py",
+			"settings":
+			{
+				"buffer_size": 413,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -406,9 +405,9 @@
 	],
 	"file_history":
 	[
+		"/C/Users/potat/Documents/Code/MazeGame/maze/mazedata/node.py",
 		"/C/Users/potat/Documents/Code/MazeGame/maze/mazedata/board.py",
 		"/C/Users/potat/Downloads/webpage-rubric.txt",
-		"/C/Users/potat/Documents/Code/MazeGame/maze/mazedata/node.py",
 		"/C/Users/potat/Documents/Code/MazeGame/main.py",
 		"/C/Users/potat/Documents/Code/MazeGame/maze/generation/mazecreator.py",
 		"/C/Users/potat/Documents/Code/MazeGame/.git/COMMIT_EDITMSG",
@@ -499,7 +498,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -508,15 +507,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4297,
+						"buffer_size": 3702,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2930,
-								2930
+								52,
+								52
 							]
 						],
 						"settings":
@@ -532,27 +531,57 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1416.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "maze/generation/mazecreator.py",
+					"file": "maze/mazedata/board.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 489,
+						"buffer_size": 2988,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								202,
-								202
+								658,
+								658
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 321.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "maze/generation/mazecreator.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								84,
+								84
 							]
 						],
 						"settings":
@@ -560,27 +589,27 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 828,
+						"buffer_size": 413,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								224,
-								224
+								201,
+								201
 							]
 						],
 						"settings":
@@ -591,70 +620,7 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "maze/mazedata/board.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2547,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2128,
-								2128
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 990.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "maze/mazedata/node.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1209,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								203,
-								203
-							]
-						],
-						"settings":
-						{
-							"SL.19.region_keys":
-							[
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2.0,
+						"translation.y": 77.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,

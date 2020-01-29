@@ -48,14 +48,14 @@ class GrowingTree(MazeCreator):
             # edge testing
             # test x borders
             if (cell[0] == 0):
-                dirs.remove((-1, 0))
+                dirs.remove(MazeCreator.W)
             elif (cell[0] == self.width - 1):
-                dirs.remove((1, 0))
+                dirs.remove(MazeCreator.E)
             # test y borders
             if (cell[1] == 0):
-                dirs.remove((0, -1))
+                dirs.remove(MazeCreator.N)
             elif (cell[1] == self.height - 1):
-                dirs.remove((0, 1))
+                dirs.remove(MazeCreator.S)
 
             # loop through all possible directons. add the direction to the current cell, and see
             # that new cell has been visited. If it has been visited, repeat with the next direction.
@@ -74,17 +74,17 @@ class GrowingTree(MazeCreator):
 
             # Carve path to the new cell
             if (direction == MazeCreator.N):
-                self.grid[cell[1]][cell[0]].up = True
-                self.grid[newCell[1]][newCell[0]].down = True
+                self.grid[cell[1]][cell[0]].setAbove(
+                    self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.E):
-                self.grid[cell[1]][cell[0]].left = True
-                self.grid[newCell[1]][newCell[0]].right = True
+                self.grid[cell[1]][cell[0]].setLeft(
+                    self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.S):
-                self.grid[cell[1]][cell[0]].down = True
-                self.grid[newCell[1]][newCell[0]].up = True
+                self.grid[cell[1]][cell[0]].setBelow(
+                    self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.W):
-                self.grid[cell[1]][cell[0]].right = True
-                self.grid[newCell[1]][newCell[0]].left = True
+                self.grid[cell[1]][cell[0]].setRight(
+                    self.grid[newCell[1]][newCell[0]])
 
             # add the new cell to the list of cells to choose from
             if (newCell is not None):
