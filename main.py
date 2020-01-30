@@ -1,5 +1,6 @@
 from maze.mazedata.board import Board, BoardSizeException
 from maze.generation.growingtree import GrowingTree
+from maze.view.app import MazeApp
 
 
 def main():
