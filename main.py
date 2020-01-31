@@ -5,10 +5,12 @@ from maze.view.app import MazeApp
 
 def main():
     try:
-        test = Board(10, 10)
-        generate = GrowingTree(test, 10)
-        generate.generate(20)
-        print(test)
+        test = Board(25, 25)
+        generate = GrowingTree(test, 25)
+        generate.generate()
+        run = MazeApp(test)
+        run.on_execute()
+        # print(test)
     except BoardSizeException as e:
         ex = e.message
         print(ex)

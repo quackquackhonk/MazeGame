@@ -77,13 +77,13 @@ class GrowingTree(MazeCreator):
                 self.grid[cell[1]][cell[0]].setAbove(
                     self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.E):
-                self.grid[cell[1]][cell[0]].setLeft(
+                self.grid[cell[1]][cell[0]].setRight(
                     self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.S):
                 self.grid[cell[1]][cell[0]].setBelow(
                     self.grid[newCell[1]][newCell[0]])
             elif (direction == MazeCreator.W):
-                self.grid[cell[1]][cell[0]].setRight(
+                self.grid[cell[1]][cell[0]].setLeft(
                     self.grid[newCell[1]][newCell[0]])
 
             # add the new cell to the list of cells to choose from

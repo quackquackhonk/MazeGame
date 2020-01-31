@@ -44,33 +44,33 @@ class Board:
             add = '  ' if (self.grid[0][i].up is not False) else '--'
             toPrint += add + '+'
         toPrint += '\n'
-        # if the node has None to the left or below, print a boundary, otherwise leave it open
+        # if the node has None to the right or below, print a boundary, otherwise leave it open
         for y in range(len(self.grid)):
-            leftBorders = '|' if (self.grid[y][0].right is False) else ' '
+            rightBorders = '|' if (self.grid[y][0].left is False) else ' '
             bottomBorders = "+"
             for x in range(len(self.grid[y])):
                 # uncomment if you want to make each cell display it's name.
                 # will require some changes to other code
-                # middle = str(self.grid[y][x].name).center(5)
+                # middle = str(self.grid[y][x].loc).center(5)
                 middle = '  '
                 if ((y, x) == self.startNode):
                     middle = 'St'
                 elif ((y, x) == self.endNode):
                     middle = 'En'
 
-                leftBorders += middle
-                # check the left
-                if (self.grid[y][x].left is False):
-                    leftBorders += '|'
+                rightBorders += middle
+                # check the right
+                if (self.grid[y][x].right is False):
+                    rightBorders += '|'
                 else:
-                    leftBorders += ' '
+                    rightBorders += ' '
 
                 # check the down
                 if (self.grid[y][x].down is False):
                     bottomBorders += '--+'
                 else:
                     bottomBorders += '  +'
-            toPrint += leftBorders + '\n'
+            toPrint += rightBorders + '\n'
             toPrint += bottomBorders + '\n'
         return toPrint.strip()
 

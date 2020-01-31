@@ -1,15 +1,15 @@
 class Node:
-    __name = 1
+    _name = 1
 
     # is node blocked? Default: False
     def __init__(self, x, y):
-        self.name = Node.__name
+        self.name = Node._name
         self.loc = (x, y)
         self.up = False
         self.down = False
         self.left = False
         self.right = False
-        Node.__name += 1
+        Node._name += 1
 
     def __str__(self):
         return "[ ]"
