@@ -8,6 +8,10 @@ class Player:
     def loc(self):
         return self._loc
 
+    @loc.setter
+    def loc(self, new):
+        self._loc = new
+
     def move(self, direction):
         self._loc = (self._loc[0] + direction[0], self._loc[1] + direction[1])
 

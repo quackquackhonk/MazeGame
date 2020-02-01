@@ -82,8 +82,8 @@ class Board:
                 grid[y].append(Node(x, y))
         return grid
 
-    def makeMaze(self, creator):
-        self.grid = creator.generate()
+    def resetBoard(self):
+        self.grid = Board.createGrid(self.height, self.width)
 
 
 if __name__ == '__main__':

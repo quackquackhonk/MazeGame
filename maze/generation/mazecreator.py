@@ -6,12 +6,32 @@ class MazeCreator():
     W = (-1, 0)
 
     def __init__(self, board):
+        self._board = None
         self.board = board
+
+    @property
+    def board(self):
+        return self.board()
+
+    @board.setter
+    def board(self, board):
+        self._board = board
         self.grid = board.grid
         self.startNode = board.startNode
         self.endNode = board.endNode
         self.height = board.height
         self.width = board.width
 
-    def generate(self, seed=None):
+    def prepareGen(self, seed=None):
         pass
+
+    def complete(self):
+        pass
+
+    def step(self):
+        pass
+
+    def generate(self, seed=None):
+        self.prepareGen(seed)
+        while(not self.complete()):
+            self.step()
