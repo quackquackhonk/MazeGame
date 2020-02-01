@@ -1,4 +1,13 @@
 # MazeGame
+
+Run main.py to start the program. (Needs python3 and pygame)
+
+CONTROLS:
+    - 'r' resets the maze
+    - 'space' generates the maze instantly
+    - 'g' enables slowGen, and allow you to watch the maze generate in real time
+    - Arrow keys control the player
+
 I like mazes so this will be fun
 
 I'm going to make a maze application that will allow for the generation of random mazes using different maze generation algorithms.
