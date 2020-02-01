@@ -28,6 +28,7 @@ class MazeApp:
     @mazeAlg.setter
     def mazeAlg(self, a):
         self._mazeAlg = a
+        self._mazeAlg.board = self.board
 
     # do all setup work here
     def on_init(self):
@@ -43,6 +44,10 @@ class MazeApp:
         self.cellSize = screenSize / self.board.height
         self._screen = pygame.display.set_mode(
             self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+
+        # initialze variables
+        self._generated = False
+        self._slowgen = False
 
         # create clock
         self.clock = pygame.time.Clock()
@@ -84,13 +89,13 @@ class MazeApp:
                 self._generated = False
             # generate board
             if (k == pygame.K_SPACE):
-                if (self.mazeAlg is not None and self._generated is False):
-                    self.mazeAlg.generate()
+                if (self._mazeAlg is not None and self._generated is False):
+                    self._mazeAlg.generate()
                     self._generated = True
             # stub for slow generation
             if (k == pygame.K_g):
-                if (self.mazeAlg is not None and self._generated is False):
-                    self.mazeAlg.prepareGen()
+                if (self._mazeAlg is not None and self._generated is False):
+                    self._mazeAlg.prepareGen()
                     self._slowgen = True
 
     # run every game tick
@@ -108,7 +113,11 @@ class MazeApp:
 
     # draw the game
     def on_render(self):
-        self._screen.fill(white)
+        # set background color
+        bg = white
+        if (self._generated is False):
+            bg = gray
+        self._screen.fill(bg)
         # right = +x, down = +y
         # draw entire game border:
         pygame.draw.line(self._screen, black, (0, 0),
@@ -119,6 +128,7 @@ class MazeApp:
                          (self.sw - 1, self.sh - 1), MazeApp.BORDER_WIDTH)  # right border
         pygame.draw.line(self._screen, black, (self.sw - 1, 0),
                          (self.sw - 1, self.sh - 1), MazeApp.BORDER_WIDTH)  # bottom border
+
         # draw cells
         for y in range(len(self.board.grid)):
             for x in range(len(self.board.grid[y])):
@@ -128,15 +138,32 @@ class MazeApp:
                                (y + 1) * self.cellSize)
                 bottomLeft = (x * self.cellSize, (y + 1) * self.cellSize)
 
+                # choose color
+                drawColor = gray
+                if (self._generated is False and self._slowgen is True):
+                    if ((x, y) in self._mazeAlg.selectedCells):
+                        drawColor = lightRed
+                    if ((x, y) in self._mazeAlg.visitedCells and not ((x, y) in self._mazeAlg.selectedCells)):
+                        drawColor = white
+                elif (self._generated is True):
+                    if ((x, y) == self.startNode):
+                        drawColor = green
+                    elif (((x, y)) == self.endNode):
+                        drawColor = red
+                    else:
+                        drawColor = white
+
+                # fill region
+                offset = MazeApp.BORDER_WIDTH
+                corner = (x * self.cellSize + offset,
+                          y * self.cellSize + offset)
+                hw = (self.cellSize - offset,
+                      self.cellSize - offset)
+                region = pygame.Rect(corner, hw)
+                pygame.draw.rect(self._screen, drawColor, region)
+
                 if ((x, y) == self.startNode or (x, y) == self.endNode):
                     node = self.board.grid[y][x]
-                    # choose color
-                    drawColor = green if ((x, y) == self.startNode) else red
-
-                    # fill region
-                    region = pygame.Rect(
-                        topLeft, (self.cellSize, self.cellSize))
-                    pygame.draw.rect(self._screen, drawColor, region)
 
                     # re-draw borders
                     if (node.up is False):
@@ -152,8 +179,8 @@ class MazeApp:
                         pygame.draw.line(self._screen, black, bottomLeft,
                                          bottomRight, MazeApp.BORDER_WIDTH)
 
-                # draw the player
-                if ((x, y) == self.player.loc):
+                # draw the player if generation is finished
+                if ((x, y) == self.player.loc and self._generated is True):
                     loc = (int((x + 1 / 2) * self.cellSize),
                            int((y + 1 / 2) * self.cellSize))
                     pygame.draw.circle(self._screen, blue,
@@ -167,7 +194,6 @@ class MazeApp:
                     pygame.draw.line(self._screen, black, bottomLeft,
                                      bottomRight, MazeApp.BORDER_WIDTH)
                 pass
-
         pygame.display.update()
 
     # runs last, do whatever you need to do to reset the game

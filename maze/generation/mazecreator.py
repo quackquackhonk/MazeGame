@@ -11,7 +11,7 @@ class MazeCreator():
 
     @property
     def board(self):
-        return self.board()
+        return self._board
 
     @board.setter
     def board(self, board):
