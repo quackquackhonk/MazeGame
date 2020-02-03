@@ -1,2 +1,4 @@
 __pycache__
-mazegame.sublime-project
+*.sublime-project
+*.sublime-workspace
+.vscode
