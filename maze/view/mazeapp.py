@@ -7,6 +7,7 @@ from .player import Player
 class MazeApp:
 
     BORDER_WIDTH = 2
+    CLOCK_TICK = 50
 
     def __init__(self, board):
         self._running = True
@@ -101,7 +102,7 @@ class MazeApp:
     # run every game tick
     def on_loop(self):
         self._running = not self.player.reachedGoal()
-        self.clock.tick(20)
+        self.clock.tick(MazeApp.CLOCK_TICK)
         # step through
         if (self._slowgen):
             if (not self.mazeAlg.complete()):
