@@ -1,11 +1,13 @@
 
 class MazeCreator():
-    N = (0, -1)
-    E = (1, 0)
-    S = (0, 1)
-    W = (-1, 0)
+    NORTH = (0, -1)
+    EAST = (1, 0)
+    SOUTH = (0, 1)
+    WEST = (-1, 0)
 
     def __init__(self, board):
+        self.selected_cells = []
+        self.visited_cells = []
         self._board = None
         self.board = board
 
@@ -17,12 +19,12 @@ class MazeCreator():
     def board(self, board):
         self._board = board
         self.grid = board.grid
-        self.startNode = board.startNode
-        self.endNode = board.endNode
+        self.start_node = board.start_node
+        self.end_node = board.end_node
         self.height = board.height
         self.width = board.width
 
-    def prepareGen(self, seed=None):
+    def prepare_gen(self, seed=None):
         pass
 
     def complete(self):
@@ -32,6 +34,6 @@ class MazeCreator():
         pass
 
     def generate(self, seed=None):
-        self.prepareGen(seed)
+        self.prepare_gen(seed)
         while(not self.complete()):
             self.step()

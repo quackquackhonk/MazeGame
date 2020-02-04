@@ -9,7 +9,7 @@ def main():
         generate = GrowingTree(test, 25)
         # generate.generate(10)
         run = MazeApp(test)
-        run.mazeAlg = generate
+        run.maze_alg = generate
         run.on_execute()
         # while (not generate.complete()):
         #     s = input("step")

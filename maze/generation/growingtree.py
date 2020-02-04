@@ -6,90 +6,87 @@ class GrowingTree(MazeCreator):
     # takes in a board as well as a weight for picking by random over picking the newest.
     def __init__(self, board, weight):
         self.weight = weight
-        self.selectedCells = None
-        self.visitedCells = None
         super(GrowingTree, self).__init__(board)
 
-    def prepareGen(self, seed=None):
+    def prepare_gen(self, seed=None):
         random.seed(seed)
-        genBegin = self.startNode
-        self.selectedCells = []
-        self.selectedCells.append(genBegin)
-        self.visitedCells = []
+        gen_begin = self.start_node
+        self.selected_cells = []
+        self.selected_cells.append(gen_begin)
+        self.visited_cells = []
 
     def complete(self):
-        return len(self.selectedCells) == 0
+        return len(self.selected_cells) == 0
 
     def step(self):
         # choose a cell
-        cell = self.chooseCell(self.selectedCells)
+        cell = self.choose_cell(self.selected_cells)
         # add the selected cell to the visited cells
-        if (cell not in self.visitedCells):
-            self.visitedCells.append(cell)
-        dirs = [MazeCreator.N, MazeCreator.E, MazeCreator.S, MazeCreator.W]
+        if (cell not in self.visited_cells):
+            self.visited_cells.append(cell)
+
+        dirs = [MazeCreator.NORTH, MazeCreator.EAST, MazeCreator.SOUTH, MazeCreator.WEST]
         # edge testing
         # test x borders
         if (cell[0] == 0):
-            dirs.remove(MazeCreator.W)
+            dirs.remove(MazeCreator.WEST)
         elif (cell[0] == self.width - 1):
-            dirs.remove(MazeCreator.E)
+            dirs.remove(MazeCreator.EAST)
         # test y borders
         if (cell[1] == 0):
-            dirs.remove(MazeCreator.N)
+            dirs.remove(MazeCreator.NORTH)
         elif (cell[1] == self.height - 1):
-            dirs.remove(MazeCreator.S)
-
+            dirs.remove(MazeCreator.SOUTH)
         # loop through all possible directons. add the direction to the current cell, and see
         # that new cell has been visited. If it has been visited, repeat with the next direction.
         # If it hasn't been visited, break and use it as the new cell
         random.shuffle(dirs)
-        newCell = None
+        new_cell = None
         direction = None
         for d in dirs:
             nc = (cell[0] + d[0], cell[1] + d[1])
-            if (nc not in self.visitedCells):
+            if (nc not in self.visited_cells):
                 direction = d
-                newCell = nc
+                new_cell = nc
                 break
-        if (newCell is None):
-            self.selectedCells.remove(cell)
+        if (new_cell is None):
+            self.selected_cells.remove(cell)
 
         # Carve path to the new cell
-        if (direction == MazeCreator.N):
+        if (direction == MazeCreator.NORTH):
             self.grid[cell[1]][cell[0]].setAbove(
-                self.grid[newCell[1]][newCell[0]])
-        elif (direction == MazeCreator.E):
+                self.grid[new_cell[1]][new_cell[0]])
+        elif (direction == MazeCreator.EAST):
             self.grid[cell[1]][cell[0]].setRight(
-                self.grid[newCell[1]][newCell[0]])
-        elif (direction == MazeCreator.S):
+                self.grid[new_cell[1]][new_cell[0]])
+        elif (direction == MazeCreator.SOUTH):
             self.grid[cell[1]][cell[0]].setBelow(
-                self.grid[newCell[1]][newCell[0]])
-        elif (direction == MazeCreator.W):
+                self.grid[new_cell[1]][new_cell[0]])
+        elif (direction == MazeCreator.WEST):
             self.grid[cell[1]][cell[0]].setLeft(
-                self.grid[newCell[1]][newCell[0]])
+                self.grid[new_cell[1]][new_cell[0]])
 
         # add the new cell to the list of cells to choose from
-        if (newCell is not None):
-            self.selectedCells.append(newCell)
-            self.visitedCells.append(newCell)
+        if (new_cell is not None):
+            self.selected_cells.append(new_cell)
+            self.visited_cells.append(new_cell)
 
-    def chooseCell(self, cells):
-        r = random.randint(0, 100)
+    def choose_cell(self, cells):
+        rand = random.randint(0, 100)
         # pick random
-        if (r < self.weight):
+        if (rand < self.weight):
             return cells[random.randrange(0, len(cells))]
-        else:
-            return cells[len(cells) - 1]
+        return cells[len(cells) - 1]
 
-    def getNeighbors(self, cell):
-        neighborlist = []
+    def get_neighbors(self, cell):
+        neighbor_list = []
         if (cell[0] != 0):
-            neighborlist.append((cell[0] - 1, cell[1]))
+            neighbor_list.append((cell[0] - 1, cell[1]))
         if (cell[0] != self.width - 1):
-            neighborlist.append((cell[0] + 1, cell[1]))
+            neighbor_list.append((cell[0] + 1, cell[1]))
         # test y borders
         if (cell[1] != 0):
-            neighborlist.append((cell[0], cell[1] - 1))
+            neighbor_list.append((cell[0], cell[1] - 1))
         if (cell[1] != self.height - 1):
-            neighborlist.append((cell[0], cell[1] + 1))
-        return neighborlist
+            neighbor_list.append((cell[0], cell[1] + 1))
+        return neighbor_list

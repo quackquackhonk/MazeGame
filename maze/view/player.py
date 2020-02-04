@@ -15,5 +15,5 @@ class Player:
     def move(self, direction):
         self._loc = (self._loc[0] + direction[0], self._loc[1] + direction[1])
 
-    def reachedGoal(self):
+    def reached_goal(self):
         return self.goal == self._loc

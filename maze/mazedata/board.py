@@ -8,6 +8,7 @@ class BoardSizeException(Exception):
     def __init__(self, height, width):
         self.height = height
         self.width = width
+        super(BoardSizeException, self).__init__()
 
     def _getMessage(self):
         message = "Nothing's wrong..."
@@ -30,51 +31,52 @@ class Board:
             raise BoardSizeException(h, w)
         self.height = h
         self.width = w
-        self.grid = Board.createGrid(self.height, self.width)
-        self.startNode = (0, 0)
-        self.endNode = (self.height - 1, self.width - 1)
+        self.grid = Board.create_grid(self.height, self.width)
+        self.start_node = (0, 0)
+        self.end_node = (self.height - 1, self.width - 1)
 
     def __str__(self):
-        toPrint = '+'
+        to_print = '+'
         # Print top row boundaries
         for i in range(self.width):
             # checking if the top border is intact
             # SHOULD NEVER HAPPEN. If the top doesn't have a complete boundary, something
             # went wrong with the maze gen algorithm
             add = '  ' if (self.grid[0][i].up is not False) else '--'
-            toPrint += add + '+'
-        toPrint += '\n'
+            to_print += add + '+'
+        to_print += '\n'
         # if the node has None to the right or below, print a boundary, otherwise leave it open
         for y in range(len(self.grid)):
-            rightBorders = '|' if (self.grid[y][0].left is False) else ' '
-            bottomBorders = "+"
+            right_borders = '|' if (self.grid[y][0].left is False) else ' '
+            bottom_borders = "+"
             for x in range(len(self.grid[y])):
                 # uncomment if you want to make each cell display it's name.
                 # will require some changes to other code
                 # middle = str(self.grid[y][x].loc).center(5)
                 middle = '  '
-                if ((y, x) == self.startNode):
+                if ((y, x) == self.start_node):
                     middle = 'St'
-                elif ((y, x) == self.endNode):
+                elif ((y, x) == self.end_node):
                     middle = 'En'
 
-                rightBorders += middle
+                right_borders += middle
                 # check the right
                 if (self.grid[y][x].right is False):
-                    rightBorders += '|'
+                    right_borders += '|'
                 else:
-                    rightBorders += ' '
+                    right_borders += ' '
 
                 # check the down
                 if (self.grid[y][x].down is False):
-                    bottomBorders += '--+'
+                    bottom_borders += '--+'
                 else:
-                    bottomBorders += '  +'
-            toPrint += rightBorders + '\n'
-            toPrint += bottomBorders + '\n'
-        return toPrint.strip()
+                    bottom_borders += '  +'
+            to_print += right_borders + '\n'
+            to_print += bottom_borders + '\n'
+        return to_print.strip()
 
-    def createGrid(height, width):
+    @staticmethod
+    def create_grid(height, width):
         grid = []
         for y in range(height):
             grid.append([])
@@ -82,8 +84,8 @@ class Board:
                 grid[y].append(Node(x, y))
         return grid
 
-    def resetBoard(self):
-        self.grid = Board.createGrid(self.height, self.width)
+    def reset_board(self):
+        self.grid = Board.create_grid(self.height, self.width)
 
 
 if __name__ == '__main__':
