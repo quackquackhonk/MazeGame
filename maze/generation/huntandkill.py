@@ -5,7 +5,7 @@ def HuntAndKill(MazeCreator):
     def __init__(self):
         pass
     
-    def prepareGen(self, seed=None):
+    def prepare_gen(self, seed=None):
         pass
 
     def step(self):
