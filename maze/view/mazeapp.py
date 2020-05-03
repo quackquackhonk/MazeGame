@@ -37,9 +37,9 @@ class MazeApp:
         # commenting out for now, may need later
         # screenW = pygame.display.Info().current_w
         display_height = pygame.display.Info().current_h
-        # screen is a square two-thirds the size of the height of the 
+        # screen is a square two-thirds the size of the height of the
         # screen resolution
-        # TODO: make screen size a function of the board size 
+        # TODO: make screen size a function of the board size
         #       AND the screen resolution
         #       Need support for non-square game boards
         screen_size = int(display_height * (2 / 5))
@@ -65,25 +65,24 @@ class MazeApp:
     # control flow
     def on_event(self, event):
         loc = self.player.loc
-        if event.type == pygame.QUIT:
+        if (event.type == pygame.QUIT):
             self._running = False
 
         # key presses
-        if event.type == pygame.KEYDOWN:
+        if (event.type == pygame.KEYDOWN):
             k = event.key
             # move player only if maze gen is complete
             if (self._generated):
-                if (k == pygame.K_UP and self.board.grid[loc[1]][loc[0]].up is not False):
+                if (k == pygame.K_UP):
                     self.player.move((0, -1))
-                if (k == pygame.K_DOWN and self.board.grid[loc[1]][loc[0]].down is not False):
+                if (k == pygame.K_DOWN):
                     self.player.move((0, 1))
-                if (k == pygame.K_LEFT and self.board.grid[loc[1]][loc[0]].left is not False):
+                if (k == pygame.K_LEFT):
                     self.player.move((-1, 0))
-                if (k == pygame.K_RIGHT and self.board.grid[loc[1]][loc[0]].right is not False):
+                if (k == pygame.K_RIGHT):
                     self.player.move((1, 0))
             # reset board
             if (k == pygame.K_r and self._generated):
-                self.player.loc = self.board.start_node
                 self.board.reset_board()
                 self.maze_alg.board = self.board
                 self._generated = False
@@ -104,7 +103,6 @@ class MazeApp:
         self.clock.tick(MazeApp.CLOCK_TICK)
         # step through
         if (self._slowgen):
-            print('slow gen')
             if (not self.maze_alg.complete()):
                 self.maze_alg.step()
             # stop slow gen and finish generation

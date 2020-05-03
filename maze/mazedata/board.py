@@ -1,4 +1,8 @@
 from .node import Node
+
+"""
+TODO: Improve documentation
+"""
 # Constants
 MIN_SIZE = 3
 
@@ -25,7 +29,12 @@ class BoardSizeException(Exception):
         return self._getMessage()
 
 
+
 class Board:
+    NORTH = (0, -1)
+    EAST = (1, 0)
+    SOUTH = (0, 1)
+    WEST = (-1, 0)
     def __init__(self, h=15, w=15):
         if (h < MIN_SIZE or w < MIN_SIZE):
             raise BoardSizeException(h, w)
@@ -34,6 +43,7 @@ class Board:
         self.grid = Board.create_grid(self.height, self.width)
         self.start_node = (0, 0)
         self.end_node = (self.height - 1, self.width - 1)
+        self._player = Player(self.end_node)
 
     def __str__(self):
         to_print = '+'
@@ -85,7 +95,17 @@ class Board:
         return grid
 
     def reset_board(self):
+        self.player.loc = self.start_node
         self.grid = Board.create_grid(self.height, self.width)
+
+    def movePlayer(self, direction):
+        p_x = self.player.loc[0]
+        p_y = self.player.loc[1]
+        move_to_x = p_x + direction[0]
+        move_to_y = p_y + direction[1]
+        if (self.grid[move_to_x][move_to_y] is not False):
+            self.player.movePlayer(direction)
+
 
 
 if __name__ == '__main__':
