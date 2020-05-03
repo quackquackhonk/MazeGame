@@ -43,7 +43,7 @@ class Board:
         self.grid = Board.create_grid(self.height, self.width)
         self.start_node = (0, 0)
         self.end_node = (self.height - 1, self.width - 1)
-        self._player = Player(self.end_node)
+        self.player = self.start_node
 
     def __str__(self):
         to_print = '+'
@@ -66,6 +66,8 @@ class Board:
                 middle = '  '
                 if ((y, x) == self.start_node):
                     middle = 'St'
+                elif ((y,x) == self.player.loc):
+                    middle = 'Pl'
                 elif ((y, x) == self.end_node):
                     middle = 'En'
 
@@ -95,16 +97,23 @@ class Board:
         return grid
 
     def reset_board(self):
-        self.player.loc = self.start_node
+        self.player = self.start_node
         self.grid = Board.create_grid(self.height, self.width)
 
-    def movePlayer(self, direction):
-        p_x = self.player.loc[0]
-        p_y = self.player.loc[1]
-        move_to_x = p_x + direction[0]
-        move_to_y = p_y + direction[1]
-        if (self.grid[move_to_x][move_to_y] is not False):
-            self.player.movePlayer(direction)
+    def move_player(self, direction):
+        move_to_x = self.player[0] + direction[0]
+        move_to_y = self.player[1] + direction[1]
+        can_move = {
+            Board.NORTH: self.grid[self.player[1]][self.player[0]].up,
+            Board.SOUTH: self.grid[self.player[1]][self.player[0]].down,
+            Board.EAST: self.grid[self.player[1]][self.player[0]].right,
+            Board.WEST: self.grid[self.player[1]][self.player[0]].left,
+        }
+        if (can_move.get(direction, False)):
+            self.player = (move_to_x, move_to_y)
+
+    def player_reached_goal(self):
+        return self.player == self.end_node
 
 
 

@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 from .gamecolors import *
-from .player import Player
 from maze.generation.mazecreator import MazeCreator
 from maze.mazedata.board import Board
 
@@ -17,7 +16,6 @@ class MazeApp:
         self._slowgen = False
         self._maze_alg = MazeCreator(Board())
         self.board = board
-        self.player = None
         self.size = (self.screen_height, self.screen_width) = (700, 700)
         self.cell_size = 10
         self.clock = pygame.time.Clock()
@@ -56,15 +54,11 @@ class MazeApp:
         self._screen.fill(WHITE)
         pygame.display.update()
 
-        # create player class
-        self.player = Player(self.board.end_node)
-
         # start the game
         self._running = True
 
     # control flow
     def on_event(self, event):
-        loc = self.player.loc
         if (event.type == pygame.QUIT):
             self._running = False
 
@@ -74,13 +68,13 @@ class MazeApp:
             # move player only if maze gen is complete
             if (self._generated):
                 if (k == pygame.K_UP):
-                    self.player.move((0, -1))
+                    self.board.move_player((0, -1))
                 if (k == pygame.K_DOWN):
-                    self.player.move((0, 1))
+                    self.board.move_player((0, 1))
                 if (k == pygame.K_LEFT):
-                    self.player.move((-1, 0))
+                    self.board.move_player((-1, 0))
                 if (k == pygame.K_RIGHT):
-                    self.player.move((1, 0))
+                    self.board.move_player((1, 0))
             # reset board
             if (k == pygame.K_r and self._generated):
                 self.board.reset_board()
@@ -99,7 +93,7 @@ class MazeApp:
 
     # run every game tick
     def on_loop(self):
-        self._running = not self.player.reached_goal()
+        self._running = not self.board.player_reached_goal()
         self.clock.tick(MazeApp.CLOCK_TICK)
         # step through
         if (self._slowgen):
@@ -185,7 +179,7 @@ class MazeApp:
                                          bottom_right, MazeApp.BORDER_WIDTH)
 
                 # draw the player if generation is finished
-                if ((x, y) == self.player.loc and self._generated is True):
+                if ((x, y) == self.board.player and self._generated is True):
                     loc = (int((x + 1 / 2) * self.cell_size),
                            int((y + 1 / 2) * self.cell_size))
                     pygame.draw.circle(self._screen, BLUE,
@@ -203,7 +197,7 @@ class MazeApp:
 
     # runs last, do whatever you need to do to reset the game
     def on_cleanup(self):
-        if self.player.reached_goal():
+        if self.board.player_reached_goal():
             print("You did it!")
         pygame.quit()
 
