@@ -3,6 +3,7 @@ from pygame.locals import *
 from .gamecolors import *
 from maze.generation.mazecreator import MazeCreator
 from maze.mazedata.board import Board
+from maze.mazedata.constants import NORTH, SOUTH, EAST, WEST
 
 
 class MazeApp:
@@ -68,13 +69,13 @@ class MazeApp:
             # move player only if maze gen is complete
             if (self._generated):
                 if (k == pygame.K_UP):
-                    self.board.move_player((0, -1))
+                    self.board.move_player(NORTH)
                 if (k == pygame.K_DOWN):
-                    self.board.move_player((0, 1))
+                    self.board.move_player(SOUTH)
                 if (k == pygame.K_LEFT):
-                    self.board.move_player((-1, 0))
+                    self.board.move_player(WEST)
                 if (k == pygame.K_RIGHT):
-                    self.board.move_player((1, 0))
+                    self.board.move_player(EAST)
             # reset board
             if (k == pygame.K_r and self._generated):
                 self.board.reset_board()

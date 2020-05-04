@@ -1,7 +1,7 @@
 from maze.mazedata.board import Board, BoardSizeException
 from maze.generation.growingtree import GrowingTree
 from maze.view.mazeapp import MazeApp
-
+from maze.solve.genetic import GeneticSolver
 
 def main():
     try:

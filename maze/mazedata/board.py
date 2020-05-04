@@ -1,5 +1,5 @@
 from .node import Node
-from .constants import *
+from .constants import NORTH, SOUTH, EAST, WEST
 
 """
 TODO: Improve documentation
@@ -28,7 +28,6 @@ class BoardSizeException(Exception):
     @property
     def message(self):
         return self._getMessage()
-
 
 
 class Board:
@@ -86,6 +85,7 @@ class Board:
 
     @staticmethod
     def create_grid(height, width):
+        """Create a grid of Nodes."""
         grid = []
         for y in range(height):
             grid.append([])
@@ -94,16 +94,25 @@ class Board:
         return grid
 
     def reset_board(self):
-        self.player = self.start_node
+        """Reset maze and player loation"""
+        self.reset_player()
         self.grid = Board.create_grid(self.height, self.width)
 
+    def reset_player(self):
+        """Reset player location"""
+        self.player = self.start_node
+
     def move_player(self, direction):
-        move_to_x = self.player[0] + direction[0]
-        move_to_y = self.player[1] + direction[1]
+        """Move the player, return True if move is valid."""
+        move_to_x = self.player[1] + direction[0]
+        move_to_y = self.player[0] + direction[1]
         if (self.can_move(direction)):
-            self.player = (move_to_x, move_to_y)
+            self.player = (move_to_y, move_to_x)
+            return True
+        return False
 
     def can_move(self, direction):
+        """Determine if the player can move a given direction."""
         can_move = {
             NORTH: self.grid[self.player[0]][self.player[1]].up,
             SOUTH: self.grid[self.player[0]][self.player[1]].down,
