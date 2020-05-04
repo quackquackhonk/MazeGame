@@ -1,4 +1,5 @@
 from .mazecreator import MazeCreator
+from maze.mazedata.constants import *
 import random
 
 
@@ -25,18 +26,19 @@ class GrowingTree(MazeCreator):
         if (cell not in self.visited_cells):
             self.visited_cells.append(cell)
 
-        dirs = [MazeCreator.NORTH, MazeCreator.EAST, MazeCreator.SOUTH, MazeCreator.WEST]
+        dirs = [NORTH, EAST, SOUTH, WEST]
+
         # edge testing
         # test x borders
         if (cell[0] == 0):
-            dirs.remove(MazeCreator.WEST)
+            dirs.remove(WEST)
         elif (cell[0] == self.width - 1):
-            dirs.remove(MazeCreator.EAST)
+            dirs.remove(EAST)
         # test y borders
         if (cell[1] == 0):
-            dirs.remove(MazeCreator.NORTH)
+            dirs.remove(NORTH)
         elif (cell[1] == self.height - 1):
-            dirs.remove(MazeCreator.SOUTH)
+            dirs.remove(SOUTH)
         # loop through all possible directons. add the direction to the current cell, and see
         # that new cell has been visited. If it has been visited, repeat with the next direction.
         # If it hasn't been visited, break and use it as the new cell
@@ -53,16 +55,16 @@ class GrowingTree(MazeCreator):
             self.selected_cells.remove(cell)
 
         # Carve path to the new cell
-        if (direction == MazeCreator.NORTH):
+        if (direction == NORTH):
             self.grid[cell[1]][cell[0]].setAbove(
                 self.grid[new_cell[1]][new_cell[0]])
-        elif (direction == MazeCreator.EAST):
+        elif (direction == EAST):
             self.grid[cell[1]][cell[0]].setRight(
                 self.grid[new_cell[1]][new_cell[0]])
-        elif (direction == MazeCreator.SOUTH):
+        elif (direction == SOUTH):
             self.grid[cell[1]][cell[0]].setBelow(
                 self.grid[new_cell[1]][new_cell[0]])
-        elif (direction == MazeCreator.WEST):
+        elif (direction == WEST):
             self.grid[cell[1]][cell[0]].setLeft(
                 self.grid[new_cell[1]][new_cell[0]])
 

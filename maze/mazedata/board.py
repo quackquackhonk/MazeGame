@@ -1,4 +1,5 @@
 from .node import Node
+from .constants import *
 
 """
 TODO: Improve documentation
@@ -31,10 +32,6 @@ class BoardSizeException(Exception):
 
 
 class Board:
-    NORTH = (0, -1)
-    EAST = (1, 0)
-    SOUTH = (0, 1)
-    WEST = (-1, 0)
     def __init__(self, h=15, w=15):
         if (h < MIN_SIZE or w < MIN_SIZE):
             raise BoardSizeException(h, w)
@@ -66,7 +63,7 @@ class Board:
                 middle = '  '
                 if ((y, x) == self.start_node):
                     middle = 'St'
-                elif ((y,x) == self.player.loc):
+                elif ((y,x) == self.player):
                     middle = 'Pl'
                 elif ((y, x) == self.end_node):
                     middle = 'En'
@@ -108,10 +105,10 @@ class Board:
 
     def can_move(self, direction):
         can_move = {
-            Board.NORTH: self.grid[self.player[1]][self.player[0]].up,
-            Board.SOUTH: self.grid[self.player[1]][self.player[0]].down,
-            Board.EAST: self.grid[self.player[1]][self.player[0]].right,
-            Board.WEST: self.grid[self.player[1]][self.player[0]].left,
+            NORTH: self.grid[self.player[0]][self.player[1]].up,
+            SOUTH: self.grid[self.player[0]][self.player[1]].down,
+            EAST: self.grid[self.player[0]][self.player[1]].right,
+            WEST: self.grid[self.player[0]][self.player[1]].left,
         }
         return can_move.get(direction, False)
 

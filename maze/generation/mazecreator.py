@@ -1,10 +1,4 @@
-
 class MazeCreator():
-    NORTH = (0, -1)
-    EAST = (1, 0)
-    SOUTH = (0, 1)
-    WEST = (-1, 0)
-
     def __init__(self, board):
         self.selected_cells = []
         self.visited_cells = []
