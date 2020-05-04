@@ -103,14 +103,17 @@ class Board:
     def move_player(self, direction):
         move_to_x = self.player[0] + direction[0]
         move_to_y = self.player[1] + direction[1]
+        if (self.can_move(direction)):
+            self.player = (move_to_x, move_to_y)
+
+    def can_move(self, direction):
         can_move = {
             Board.NORTH: self.grid[self.player[1]][self.player[0]].up,
             Board.SOUTH: self.grid[self.player[1]][self.player[0]].down,
             Board.EAST: self.grid[self.player[1]][self.player[0]].right,
             Board.WEST: self.grid[self.player[1]][self.player[0]].left,
         }
-        if (can_move.get(direction, False)):
-            self.player = (move_to_x, move_to_y)
+        return can_move.get(direction, False)
 
     def player_reached_goal(self):
         return self.player == self.end_node
