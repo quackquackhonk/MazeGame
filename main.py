@@ -24,4 +24,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    gt = GrowingTree(Board(), 50)
+    gt.generate(1)
+    ga = GeneticSolver(gt.board, 10000, 0.5, 10, 1)
+    sol = ga.simulate()
+    print(sol)
+    print(ga.fitness(sol))
+    print(ga.board)
