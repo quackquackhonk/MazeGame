@@ -122,6 +122,7 @@ class Board:
         return can_move.get(direction, False)
 
     def player_reached_goal(self):
+        """Determine if the player has reached the goal."""
         return self.player == self.end_node
 
 
