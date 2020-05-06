@@ -15,22 +15,23 @@ class GeneticSolver():
         pop_size (int): the size of the population
         population (int[][]): the current population, represented as
             lists of ints encoding organism movement
-        mutation_chance (int): chance of mutation on reproduction
+        mutation_chance (float): chance of mutation on
+            reproduction (default: 50%)
         move_limit (int): maximum number of moves an organism can make
         min_score (int): minimum acceptable score for an organism (default: 2)
         seed (int): seed for randomness (default: None)
     """
 
-    def __init__(self, board, size, chance, ms=2, s=None):
+    def __init__(self, board, size, chance=0.5, min_score=2, seed=None):
         self.board = board
-        self.seed = random.seed(s)
+        random.seed(seed)
         self.pop_size = size
-        self.mutation_chance = chance
-        self.min_score = ms
+        self.mutation_chance = chance  # pre-made maze to solve
+        self.min_score = min_score
         self.move_limit = int(sqrt(self.board.height * self.board.width) * 3)
 
         # initialize population
-        self.population = [[random.randint(0,4) for i
+        self.population = [[random.randint(0, 4) for i
                             in range(self.move_limit)] for j
                            in range(self.pop_size)]
         # sort population by fitness
@@ -123,7 +124,8 @@ class GeneticSolver():
             int[]: DNA that has been mutated
         """
         if (random.random() <= self.mutation_chance):
-            offspring[random.randint(0,self.move_limit-1)]=random.randint(0,4)
+            offspring[random.randint(0, self.move_limit-1)
+                      ] = random.randint(0, 4)
         return offspring
 
     def new_population(self):
