@@ -180,7 +180,7 @@ class MazeApp:
                                          bottom_right, MazeApp.BORDER_WIDTH)
 
                 # draw the player if generation is finished
-                if ((x, y) == self.board.player and self._generated is True):
+                if ((y, x) == self.board.player and self._generated is True):
                     loc = (int((x + 1 / 2) * self.cell_size),
                            int((y + 1 / 2) * self.cell_size))
                     pygame.draw.circle(self._screen, BLUE,
