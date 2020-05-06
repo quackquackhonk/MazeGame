@@ -1,9 +1,11 @@
 import pygame
 from pygame.locals import *
-from .gamecolors import *
+
 from maze.generation.mazecreator import MazeCreator
 from maze.mazedata.board import Board
-from maze.mazedata.constants import NORTH, SOUTH, EAST, WEST
+from maze.mazedata.constants import EAST, NORTH, SOUTH, WEST
+
+from .gamecolors import *
 
 
 class MazeApp:
@@ -42,7 +44,8 @@ class MazeApp:
         #       AND the screen resolution
         #       Need support for non-square game boards
         screen_size = int(display_height * (2 / 5))
-        self.size = (self.screen_height, self.screen_width) = (screen_size, screen_size)
+        self.size = (self.screen_height, self.screen_width) = (
+            screen_size, screen_size)
         self.cell_size = screen_size / self.board.height
         self._screen = pygame.display.set_mode(
             self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
