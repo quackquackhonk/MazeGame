@@ -1,7 +1,9 @@
-from maze.mazedata.board import Board, BoardSizeException
+# from maze.view.mazeapp import MazeApp
+from maze.app.mazeapp import MazeApp, launch
 from maze.generation.growingtree import GrowingTree
-from maze.view.mazeapp import MazeApp
+from maze.mazedata.board import Board, BoardSizeException
 from maze.solve.genetic import GeneticSolver
+
 
 def main():
     try:
@@ -24,11 +26,12 @@ def main():
 
 
 if __name__ == '__main__':
+    launch(500, 500)
     # main()
-    gt = GrowingTree(Board(), 50)
-    gt.generate(1)
-    ga = GeneticSolver(gt.board, 10000, 0.5, 10, 1)
-    sol = ga.simulate()
-    print(sol)
-    print(ga.fitness(sol))
-    print(ga.board)
+    # gt = GrowingTree(Board(), 50)
+    # gt.generate(1)
+    # ga = GeneticSolver(gt.board, 10000, 0.5, 10, 1)
+    # sol = ga.simulate()
+    # print(sol)
+    # print(ga.fitness(sol))
+    # print(ga.board)
