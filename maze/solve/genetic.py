@@ -5,6 +5,19 @@ import random
 from math import sqrt
 
 
+def calc_move_limit(h, w):
+    """Calculate the move limit based on board dimensions.
+
+    Args:
+        - h (int): height of the board
+        - w (int): width of the board
+
+    Returns:
+        - (int): move limit for the given board dimensions
+    """
+    return int(sqrt(h * w)) * 3
+
+
 class GeneticSolver():
     """Solve the maze using a genetic algorithm.
 
@@ -26,9 +39,8 @@ class GeneticSolver():
         self.board = board
         random.seed(seed)
         self.pop_size = size
-        self.mutation_chance = chance  # pre-made maze to solve
+        self.mutation_chance = chance
         self.min_score = min_score
-        self.move_limit = int(sqrt(self.board.height * self.board.width) * 3)
 
         # initialize population
         self.population = [[random.randint(0, 4) for i
@@ -36,6 +48,16 @@ class GeneticSolver():
                            in range(self.pop_size)]
         # sort population by fitness
         self.population.sort(key=lambda g: self.fitness(g))
+
+    @property
+    def board(self):
+        """Board to be solved."""
+        return self._board
+
+    @board.setter
+    def board(self, b):
+        self._board = b
+        self.move_limit = calc_move_limit(b.height, b.width)
 
     def fitness(self, organism):
         """Determine the fitness of the given organism
@@ -77,8 +99,7 @@ class GeneticSolver():
         penalties = 0
 
         for g in organism:
-            d = gene_encoder.get(g, (0, 0))
-            move = self.board.move_player(d)
+            move = self.board.move_player(gene_encoder.get(g, (0, 0)))
             if (not move):
                 penalties += 1
 
