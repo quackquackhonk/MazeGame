@@ -2,7 +2,6 @@
 from maze.app.mazeapp import MazeApp, launch
 from maze.generation.growingtree import GrowingTree
 from maze.mazedata.board import Board, BoardSizeException
-from maze.solve.genetic import GeneticSolver
 
 
 def main():
@@ -21,12 +20,10 @@ def main():
     except BoardSizeException as e:
         ex = e.message
         print(ex)
-    except Exception as e:
-        raise e
 
 
 if __name__ == '__main__':
-    launch(500, 500)
+    launch()
     # main()
     # gt = GrowingTree(Board(), 50)
     # gt.generate(1)
